@@ -17,7 +17,7 @@ async function bootstrap() {
     SwaggerModule.setup('api', app, document);
 
     const hostname = process.env.HOSTNAME;
-    const port = Number(process.env.PORT || 5780);
+    const port = Number(process.env.PORT || 9876);
     await app.listen(port, hostname);
 }
 bootstrap();
