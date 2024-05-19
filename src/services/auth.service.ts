@@ -57,13 +57,14 @@ export class AuthService {
         return tokens;
     }
 
-    async apiValidateAccessToken(access_token: string) {
+    getUserIdFromAccessToken(access_token: string) {
         const decoded = Buffer.from(access_token, 'base64').toString();
         const splited = decoded.split('.');
-        if (splited.length != 2) {
-            throw authError.invalidAccessTokenFormat();
-        }
-        const id = splited[0];
+        return splited[0];
+    }
+
+    async apiValidateAccessToken(access_token: string) {
+        const id = this.getUserIdFromAccessToken(access_token);
         if (!await this.validateToken(id, access_token)) {
             throw authError.invalidAccessToken();
         }
@@ -85,12 +86,7 @@ export class AuthService {
     }
 
     async apiRefreshTokens(access_token: string) {
-        const decoded = Buffer.from(access_token, 'base64').toString();
-        const splited = decoded.split('.');
-        if (splited.length != 2) {
-            throw authError.invalidAccessTokenFormat();
-        }
-        const id = splited[0];
+        const id = this.getUserIdFromAccessToken(access_token);
         if (!await this.validateToken(id, access_token)) {
             throw authError.invalidAccessToken();
         }
