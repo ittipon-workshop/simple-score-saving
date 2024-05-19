@@ -28,3 +28,9 @@ model users {
   is_disable        Boolean  @default(false)
   disable_time      DateTime @default("1970-01-01T00:00:00+00:00")
 }
+
+model scores {
+  id                String   @id
+  highest_score     Int
+  update_time       DateTime @default(now()) @updatedAt
+}
