@@ -1,4 +1,4 @@
-name: vearth-server-ci-main
+name: simple-score-saving-ci-main
 
 on:
   push:
